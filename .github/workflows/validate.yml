@@ -27,4 +27,5 @@ jobs:
         run: |
           sudo apt-get install -y -q shellcheck >/dev/null
           python3 -c 'import json; print(json.load(open(".mcp.json"))["mcpServers"]["xoid"]["args"][-1])' > launcher.sh
-          shellcheck -s sh launcher.sh
+          # SC2015 (A && B || C) is intended: the || branch runs when either test fails.
+          shellcheck -s sh -e SC2015 launcher.sh
