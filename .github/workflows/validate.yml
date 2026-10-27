@@ -1,0 +1,30 @@
+name: validate
+
+# Checks the plug-in the way xoid's own tst_xcodeplugin does: the JSON
+# parses, every skill has a name and a description, and the launcher
+# passes shellcheck.
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JSON parses
+        run: |
+          python3 -c 'import json; json.load(open(".claude-plugin/plugin.json")); json.load(open(".mcp.json"))'
+      - name: Skills have name and description
+        run: |
+          set -e
+          for f in skills/*/SKILL.md; do
+            d=$(basename "$(dirname "$f")")
+            grep -q "^name: $d\$" "$f" || { echo "$f: name must be $d"; exit 1; }
+            grep -q "^description: ." "$f" || { echo "$f: no description"; exit 1; }
+          done
+      - name: Launcher passes shellcheck
+        run: |
+          sudo apt-get install -y -q shellcheck >/dev/null
+          python3 -c 'import json; print(json.load(open(".mcp.json"))["mcpServers"]["xoid"]["args"][-1])' > launcher.sh
+          shellcheck -s sh launcher.sh

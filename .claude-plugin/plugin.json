@@ -1,0 +1,7 @@
+{
+  "name": "xoid",
+  "description": "Live iPhone frames on xoid's canvas for Xcode's agents, and the Prepare for designers setup.",
+  "version": "1.0.0",
+  "author": {"name": "xoid"},
+  "homepage": "https://xoid.design"
+}

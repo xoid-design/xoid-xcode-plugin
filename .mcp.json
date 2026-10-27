@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "xoid": {
+      "command": "/bin/sh",
+      "args": [
+        "-c",
+        "A=/Applications/xoid.app; [ -x \"$A/Contents/Helpers/xoid-mcp\" ] || A=$(/usr/bin/mdfind \"kMDItemCFBundleIdentifier == 'dev.xoid.app'\" | /usr/bin/head -n 1); [ -n \"$A\" ] && [ -x \"$A/Contents/Helpers/xoid-mcp\" ] || { echo 'xoid is not installed. Download it from https://xoid.design, open it once, then try again.' >&2; exit 1; }; exec \"$A/Contents/Helpers/xoid-mcp\" --via xcode-plugin --plugin-version 1.0.0"
+      ],
+      "_meta": {
+        "ideToolIconPath": "assets/xoid-mono.svg",
+        "ideToolIconRendersAsTemplate": true,
+        "ideToolTitles": {
+          "xoid_frames": "xoid: Look at Frames",
+          "xoid_device": "xoid: Use iPhone",
+          "xoid_selection": "xoid: Selected Element",
+          "xoid_flow": "xoid: Edit Flow",
+          "xoid_project": "xoid: Project"
+        }
+      }
+    }
+  }
+}
